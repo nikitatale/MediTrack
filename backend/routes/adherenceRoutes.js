@@ -1,11 +1,15 @@
-const express = require("express");
+import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
+import {
+  markDose,
+  getAdherenceStats,
+} from "../controllers/adherenceController.js";
+
 const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
-const { markDose, getAdherenceStats } = require("../controllers/adherenceController");
 
 router.use(protect);
 
 router.post("/mark", markDose);
 router.get("/stats", getAdherenceStats);
 
-module.exports = router;
+export default router;

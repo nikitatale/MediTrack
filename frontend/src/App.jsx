@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
 import Home from "./pages/Home.jsx";
 import Auth from "./pages/Auth.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import HowItWorks from "./components/HowItWorks.jsx";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();

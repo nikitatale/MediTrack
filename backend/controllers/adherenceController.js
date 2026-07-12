@@ -1,58 +1,92 @@
-const AdherenceLog = require("../models/AdherenceLog");
+import AdherenceLog from "../models/AdherenceLog.js";
 
 // @route POST /api/adherence/mark
-// body: { medicineId, scheduledTime, status } status = "taken" | "missed"
-const markDose = async (req, res) => {
+// body: { medicineId, scheduledTime, status }
+// status = "taken" | "missed"
+
+export const markDose = async (req, res) => {
   try {
     const { medicineId, scheduledTime, status } = req.body;
+
     const log = await AdherenceLog.create({
       userId: req.user.id,
       medicineId,
       scheduledTime,
       status,
     });
+
     res.status(201).json(log);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
 // @route GET /api/adherence/stats
 // Returns adherence % for last 30 days + streak
-const getAdherenceStats = async (req, res) => {
+
+export const getAdherenceStats = async (req, res) => {
   try {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const logs = await AdherenceLog.find({
       userId: req.user.id,
-      date: { $gte: thirtyDaysAgo },
-    }).sort({ date: -1 });
+      date: {
+        $gte: thirtyDaysAgo,
+      },
+    }).sort({
+      date: -1,
+    });
 
     const total = logs.length;
-    const taken = logs.filter((l) => l.status === "taken").length;
-    const adherencePercent = total === 0 ? 0 : Math.round((taken / total) * 100);
+    const taken = logs.filter((log) => log.status === "taken").length;
 
-    // simple streak calculation (consecutive days with all doses taken)
+    const adherencePercent =
+      total === 0
+        ? 0
+        : Math.round((taken / total) * 100);
+
     let streak = 0;
     const groupedByDate = {};
+
     logs.forEach((log) => {
       const dateKey = log.date.toISOString().split("T")[0];
-      if (!groupedByDate[dateKey]) groupedByDate[dateKey] = [];
+
+      if (!groupedByDate[dateKey]) {
+        groupedByDate[dateKey] = [];
+      }
+
       groupedByDate[dateKey].push(log.status);
     });
 
-    const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(b) - new Date(a));
+    const sortedDates = Object.keys(groupedByDate).sort(
+      (a, b) => new Date(b) - new Date(a)
+    );
+
     for (const date of sortedDates) {
-      const allTaken = groupedByDate[date].every((s) => s === "taken");
-      if (allTaken) streak++;
-      else break;
+      const allTaken = groupedByDate[date].every(
+        (status) => status === "taken"
+      );
+
+      if (allTaken) {
+        streak++;
+      } else {
+        break;
+      }
     }
 
-    res.json({ adherencePercent, totalLogs: total, takenCount: taken, streak, logs });
+    res.json({
+      adherencePercent,
+      totalLogs: total,
+      takenCount: taken,
+      streak,
+      logs,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
-
-module.exports = { markDose, getAdherenceStats };

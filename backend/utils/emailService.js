@@ -1,16 +1,22 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // use Gmail App Password, not your real password
+    pass: process.env.EMAIL_PASS,
   },
 });
 
-const sendReminderEmail = async (toEmail, medicineName, time) => {
+export const sendReminderEmail = async (
+  toEmail,
+  medicineName,
+  time
+) => {
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.log(`[Email skipped - not configured] Reminder: ${medicineName} at ${time}`);
+    console.log(
+      `[Email skipped] Reminder: ${medicineName} at ${time}`
+    );
     return;
   }
 
@@ -21,5 +27,3 @@ const sendReminderEmail = async (toEmail, medicineName, time) => {
     text: `This is a reminder to take ${medicineName} scheduled for ${time}.`,
   });
 };
-
-module.exports = { sendReminderEmail };

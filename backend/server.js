@@ -1,33 +1,50 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const path = require("path");
-const connectDB = require("./config/db");
-const startReminderCron = require("./utils/reminderScheduler");
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import path from "path";
+import { fileURLToPath } from "url";
+import dns from "dns";
 
-dotenv.config();
+import connectDB from "./config/db.js";
+import startReminderCron from "./utils/reminderScheduler.js";
+
+import authRoutes from "./routes/authRoutes.js";
+import medicineRoutes from "./routes/medicineRoutes.js";
+import adherenceRoutes from "./routes/adherenceRoutes.js";
+import prescriptionRoutes from "./routes/prescriptionRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import llmRoutes from "./routes/llmRoutes.js";
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
 connectDB();
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/medicines", require("./routes/medicineRoutes"));
-app.use("/api/adherence", require("./routes/adherenceRoutes"));
-app.use("/api/prescriptions", require("./routes/prescriptionRoutes"));
-app.use("/api/orders", require("./routes/orderRoutes"));
-app.use("/api/llm", require("./routes/llmRoutes"));
+app.use("/api/auth", authRoutes);
+app.use("/api/medicines", medicineRoutes);
+app.use("/api/adherence", adherenceRoutes);
+app.use("/api/prescriptions", prescriptionRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/llm", llmRoutes);
 
 app.get("/", (req, res) => {
   res.send("MediTrack API is running...");
 });
 
-// Start cron jobs (reminders + auto-reorder)
+// Start cron jobs
 startReminderCron();
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

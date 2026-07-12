@@ -15,7 +15,7 @@ const HowItWorks = () => {
             {
               n: "01",
               title: "Scan your prescription",
-              desc: "Snap a photo. MediTrack reads the dosage, timing, and duration for you — no manual typing.",
+              desc: "Snap a photo. MediTrack reads the dosage, timing, and duration for you - no manual typing.",
             },
             {
               n: "02",
@@ -25,7 +25,7 @@ const HowItWorks = () => {
             {
               n: "03",
               title: "Auto-refill before you run out",
-              desc: "When your supply runs low, a refill order is placed and delivered — no last-minute scramble.",
+              desc: "When your supply runs low, a refill order is placed and delivered - no last-minute scramble.",
             },
           ].map((step) => (
             <div

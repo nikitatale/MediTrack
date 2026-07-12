@@ -1,18 +1,19 @@
-const express = require("express");
-const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
-const {
+import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
+import {
   addMedicine,
   getMedicines,
   updateMedicine,
   deleteMedicine,
-} = require("../controllers/medicineController");
+} from "../controllers/medicineController.js";
 
-router.use(protect); // all routes below require login
+const router = express.Router();
+
+router.use(protect);
 
 router.post("/", addMedicine);
 router.get("/", getMedicines);
 router.put("/:id", updateMedicine);
 router.delete("/:id", deleteMedicine);
 
-module.exports = router;
+export default router;
