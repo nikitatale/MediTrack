@@ -1,12 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const { protect } = require("../middleware/authMiddleware");
-const upload = require("../middleware/upload");
-const {
+import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
+import upload from "../middleware/upload.js";
+import {
   uploadPrescription,
   getPrescriptions,
   reviewPrescription,
-} = require("../controllers/prescriptionController");
+} from "../controllers/prescriptionController.js";
+
+const router = express.Router();
 
 router.use(protect);
 
@@ -14,4 +15,4 @@ router.post("/upload", upload.single("image"), uploadPrescription);
 router.get("/", getPrescriptions);
 router.put("/:id/review", reviewPrescription);
 
-module.exports = router;
+export default router;
