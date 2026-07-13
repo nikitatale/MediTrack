@@ -1,5 +1,9 @@
+
+
 import User from "../models/User.js";
+
 import bcrypt from "bcryptjs";
+
 import jwt from "jsonwebtoken";
 
 const generateToken = (user) => {
@@ -12,7 +16,7 @@ const generateToken = (user) => {
   );
 };
 
-// @route POST /api/auth/signup
+
 export const signup = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
@@ -45,7 +49,7 @@ export const signup = async (req, res) => {
   }
 };
 
-// @route POST /api/auth/login
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;

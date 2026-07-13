@@ -8,6 +8,9 @@ import Footer from "../components/Footer.jsx";
 
 import CallToAction from "../components/CallToAction.jsx";
 import Features from "../components/Features.jsx";
+
+import { useAuth } from "../context/AuthContext.jsx";
+
 import HowItWorks from "../components/HowItWorks.jsx";
 import { Link } from "react-router-dom";
 
@@ -35,6 +38,9 @@ const NavLink = ({ children, href = "#" }) => (
 
 
 export default function Home() {
+
+  const { user } = useAuth();
+
   const marqueeItems = [
     "Prescription OCR Scan",
     "Smart Dose Reminders",
@@ -46,14 +52,18 @@ export default function Home() {
     <div className="min-h-screen w-full bg-ink text-lavender font-body overflow-x-hidden selection:bg-coral selection:text-ink">
      
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        
         <div className="absolute -top-32 -left-20 h-96 w-96 rounded-full bg-coral/20 blur-3xl animate-blob" />
+        
         <div className="absolute top-1/3 -right-24 h-[28rem] w-[28rem] rounded-full bg-mint/10 blur-3xl animate-blob [animation-delay:-6s]" />
+        
         <div className="absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-plum2/60 blur-3xl animate-blob [animation-delay:-3s]" />
       </div>
 
     
       <header className="relative z-20">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
+        
           <Link to="/" className="flex items-center gap-2.5">
             <Logo className="h-9 w-9 shrink-0" />
             <span className="font-display text-lg font-semibold tracking-tight">
@@ -62,17 +72,20 @@ export default function Home() {
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
+        
             <NavLink href="#features">Features</NavLink>
+        
             <NavLink href="#how-it-works">How it works</NavLink>
+        
             <NavLink href="/auth">Get started</NavLink>
           </div>
  
           <Link
-            to="/auth"
-            className="rounded-full bg-lavender px-5 py-2.5 text-sm font-semibold text-ink transition-transform duration-200 hover:scale-105 hover:bg-white"
-          >
-            Sign up free
-          </Link>
+  to={user ? "/dashboard" : "/auth"}
+  className="rounded-full bg-lavender px-5 py-2.5 text-sm font-semibold text-ink transition-transform duration-200 hover:scale-105 hover:bg-white"
+>
+  {user ? "Go to dashboard" : "Sign up free"}
+</Link>
         </nav>
       </header>
 
@@ -81,13 +94,16 @@ export default function Home() {
         <div className="grid items-center gap-16 lg:grid-cols-2">
          
           <div className="animate-fade-in-up">
+          
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-mint/30 bg-mint/10 px-4 py-1.5 font-mono text-xs uppercase tracking-widest text-mint">
+          
               <span className="h-1.5 w-1.5 rounded-full bg-mint animate-pulse-dot" />
               Adherence, on autopilot
             </div>
 
             <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.4rem] xl:text-6xl">
               Never miss a{" "}
+          
               <span className="bg-gradient-to-r from-coral to-coral2 bg-clip-text text-transparent">
                 dose.
               </span>
@@ -105,12 +121,12 @@ export default function Home() {
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <Link
-                to="/auth"
-                className="group relative overflow-hidden rounded-full bg-coral px-7 py-3.5 text-sm font-semibold text-ink shadow-lg shadow-coral/30 transition-transform duration-200 hover:scale-105"
-              >
-                Start tracking free
-              </Link>
+             <Link
+  to={user ? "/dashboard" : "/auth"}
+  className="group relative overflow-hidden rounded-full bg-coral px-7 py-3.5 text-sm font-semibold text-ink shadow-lg shadow-coral/30 transition-transform duration-200 hover:scale-105"
+>
+  {user ? "Go to dashboard" : "Start tracking free"}
+</Link>
               <a
                 href="#how-it-works"
                 className="rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-lavender transition-colors duration-200 hover:border-mint/50 hover:text-mint"
@@ -121,6 +137,7 @@ export default function Home() {
 
             
             <div className="mt-14 max-w-lg overflow-hidden border-y border-white/10 py-3 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            
               <div className="flex w-max animate-marquee gap-10 font-mono text-xs uppercase tracking-widest text-muted">
                 {[...marqueeItems, ...marqueeItems].map((item, i) => (
                   <span key={i} className="flex items-center gap-3 whitespace-nowrap">

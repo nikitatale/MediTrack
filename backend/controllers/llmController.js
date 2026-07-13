@@ -1,8 +1,4 @@
-// Simple fetch-based call to an LLM API (OpenAI-compatible).
-// No ML knowledge needed - this is just an HTTP request like any other API call.
 
-// @route POST /api/llm/medicine-info
-// body: { medicineName }
 
 export const getMedicineInfo = async (req, res) => {
   try {
