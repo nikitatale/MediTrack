@@ -1,8 +1,8 @@
+
+
 import AdherenceLog from "../models/AdherenceLog.js";
 
-// @route POST /api/adherence/mark
-// body: { medicineId, scheduledTime, status }
-// status = "taken" | "missed"
+
 
 export const markDose = async (req, res) => {
   try {
@@ -23,8 +23,7 @@ export const markDose = async (req, res) => {
   }
 };
 
-// @route GET /api/adherence/stats
-// Returns adherence % for last 30 days + streak
+
 
 export const getAdherenceStats = async (req, res) => {
   try {

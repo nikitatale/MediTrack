@@ -1,10 +1,15 @@
+
 import React, { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import Logo from "../components/Logo.jsx";
+
 import { loginRequest, signupRequest } from "../api/auth.js";
+
 import { useAuth } from "../context/AuthContext.jsx";
 
-import { MoveLeft } from "lucide-react";
+import { HousePlus, MoveLeft } from "lucide-react";
 
 const initialSignup = { name: "", email: "", password: "", address: "", phone: "" };
 const initialLogin = { email: "", password: "" };
@@ -55,7 +60,9 @@ export default function Auth() {
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-ink px-6 py-12 font-body text-lavender">
      
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        
         <div className="absolute -top-32 -left-20 h-96 w-96 rounded-full bg-coral/20 blur-3xl animate-blob" />
+        
         <div className="absolute bottom-0 -right-24 h-[26rem] w-[26rem] rounded-full bg-mint/10 blur-3xl animate-blob [animation-delay:-6s]" />
       </div>
 
@@ -63,8 +70,10 @@ export default function Auth() {
        
         <Link to="/" className="mb-8 flex items-center justify-center gap-2.5">
           <Logo className="h-9 w-9" />
+          
           <span className="font-display text-lg font-semibold tracking-tight">
             Medi<span className="text-coral">Track</span>
+          
           </span>
         </Link>
 
@@ -183,7 +192,8 @@ export default function Auth() {
          to="/"
          className="mt-6 flex items-center justify-center gap-2 text-sm text-muted hover:text-lavender transition-colors duration-200"
 >
-  <MoveLeft className="h-5 w-5" />
+ 
+   <HousePlus className="h-4 w-4"/>
   <span>Back to home</span>
 </Link>
       </div>

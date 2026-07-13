@@ -13,15 +13,15 @@ const medicineSchema = new mongoose.Schema(
     },
     dosage: {
       type: String,
-      required: true, // e.g. "500mg"
+      required: true, 
     },
     frequency: {
       type: String,
-      required: true, // e.g. "twice a day"
+      required: true, 
     },
     timings: [
       {
-        type: String, // e.g. ["09:00", "21:00"]
+        type: String, 
       },
     ],
     durationDays: {
@@ -34,7 +34,7 @@ const medicineSchema = new mongoose.Schema(
     },
     refillThreshold: {
       type: Number,
-      default: 3, // trigger reorder when stock <= this
+      default: 3, 
     },
     startDate: {
       type: Date,

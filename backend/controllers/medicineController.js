@@ -1,6 +1,8 @@
+
+
 import Medicine from "../models/Medicine.js";
 
-// @route POST /api/medicines
+
 export const addMedicine = async (req, res) => {
   try {
     const medicine = await Medicine.create({
@@ -16,7 +18,7 @@ export const addMedicine = async (req, res) => {
   }
 };
 
-// @route GET /api/medicines
+
 export const getMedicines = async (req, res) => {
   try {
     const medicines = await Medicine.find({
@@ -32,7 +34,7 @@ export const getMedicines = async (req, res) => {
   }
 };
 
-// @route PUT /api/medicines/:id
+
 export const updateMedicine = async (req, res) => {
   try {
     const medicine = await Medicine.findOneAndUpdate(
@@ -60,7 +62,7 @@ export const updateMedicine = async (req, res) => {
   }
 };
 
-// @route DELETE /api/medicines/:id
+
 export const deleteMedicine = async (req, res) => {
   try {
     const medicine = await Medicine.findOneAndUpdate(

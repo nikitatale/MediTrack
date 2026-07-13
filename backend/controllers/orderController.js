@@ -1,7 +1,10 @@
+
 import Order from "../models/Order.js";
+
+
 import Medicine from "../models/Medicine.js";
 
-// @route POST /api/orders
+
 export const placeOrder = async (req, res) => {
   try {
     const { medicines, deliveryAddress } = req.body;
@@ -20,7 +23,7 @@ export const placeOrder = async (req, res) => {
   }
 };
 
-// @route GET /api/orders
+
 export const getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({
@@ -35,7 +38,7 @@ export const getMyOrders = async (req, res) => {
   }
 };
 
-// @route PUT /api/orders/:id/status (admin only)
+
 export const updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -60,7 +63,7 @@ export const updateOrderStatus = async (req, res) => {
   }
 };
 
-// @route GET /api/orders/all (admin only)
+
 export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find().populate(
@@ -76,8 +79,7 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-// Called internally by cron job
-// Checks all medicines and auto-creates an order if stock is low
+
 export const checkAndAutoReorder = async () => {
   try {
     const lowStockMedicines = await Medicine.find({

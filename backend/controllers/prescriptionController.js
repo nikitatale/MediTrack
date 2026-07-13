@@ -1,8 +1,11 @@
+
+
 import Tesseract from "tesseract.js";
+
+
 import Prescription from "../models/Prescription.js";
 
-// @route POST /api/prescriptions/upload
-// multipart/form-data with field name "image"
+
 export const uploadPrescription = async (req, res) => {
   try {
     if (!req.file) {
@@ -13,7 +16,7 @@ export const uploadPrescription = async (req, res) => {
 
     const imagePath = req.file.path;
 
-    // Run OCR on uploaded image
+   
     const result = await Tesseract.recognize(imagePath, "eng");
     const extractedText = result.data.text;
 
@@ -32,7 +35,7 @@ export const uploadPrescription = async (req, res) => {
   }
 };
 
-// @route GET /api/prescriptions
+
 export const getPrescriptions = async (req, res) => {
   try {
     const prescriptions = await Prescription.find({
@@ -49,8 +52,7 @@ export const getPrescriptions = async (req, res) => {
   }
 };
 
-// @route PUT /api/prescriptions/:id/review
-// User edits/confirms OCR extracted text before it's used to create Medicine entries
+
 export const reviewPrescription = async (req, res) => {
   try {
     const { extractedText } = req.body;
