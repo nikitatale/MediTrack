@@ -198,7 +198,8 @@ Full endpoint documentation is in the code comments above each route handler.
 ## 👩‍💻 About the Developer
 
 **Nikita Tale** - Full-Stack Developer specializing in MERN Stack
-Open to work! Let's connect →
+Open to work! Let's connect
+
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/nikita-tale)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?logo=github)](https://github.com/nikitatale)
 
