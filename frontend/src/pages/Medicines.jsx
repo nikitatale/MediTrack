@@ -7,6 +7,8 @@ import Logo from "../components/Logo.jsx";
 
 import { useAuth } from "../context/AuthContext.jsx";
 
+import MedicineInfoModal from "../components/MedicineInfoModal.jsx";
+
 import {
   getMedicines,
   addMedicine,
@@ -38,6 +40,8 @@ export default function Medicines() {
  
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+
+  const [infoMedicine, setInfoMedicine] = useState(null);
 
   useEffect(() => {
     fetchMedicines();
@@ -141,6 +145,13 @@ export default function Medicines() {
              Dashboard            
             </Link>
 
+                <Link
+                    to="/orders"
+                    className="text-sm text-muted hover:text-lavender transition-colors"
+                  >
+                    Orders
+                  </Link>
+
             <span className="hidden text-sm text-muted sm:inline">
               {user?.name}
             </span>
@@ -219,19 +230,29 @@ export default function Medicines() {
                 </p>
 
                 <div className="mt-5 flex gap-3">
+               <button
+                onClick={() => setInfoMedicine(med.name)}
+                className="text-xs font-semibold text-coral hover:underline"
+                >
+                Know more
+               </button>
+
+               <button
+                onClick={() => openEditForm(med)}
+                className="text-xs font-semibold text-mint hover:underline"
+                >
+                 Edit
+              </button>
+
+
                   <button
-                    onClick={() => openEditForm(med)}
-                    className="text-xs font-semibold text-mint hover:underline"
+                  onClick={() => handleDelete(med._id)}
+                  className="text-xs font-semibold text-muted hover:text-coral"
                   >
-                    Edit
+                  Remove
                   </button>
-                  <button
-                    onClick={() => handleDelete(med._id)}
-                    className="text-xs font-semibold text-muted hover:text-coral"
-                  >
-                    Remove
-                  </button>
-                </div>
+                  </div>
+
               </div>
             ))}
           </div>
@@ -287,6 +308,13 @@ export default function Medicines() {
             </form>
           </div>
         </div>
+      )}
+
+        {infoMedicine && (
+        <MedicineInfoModal
+          medicineName={infoMedicine}
+          onClose={() => setInfoMedicine(null)}
+        />
       )}
     </div>
   );

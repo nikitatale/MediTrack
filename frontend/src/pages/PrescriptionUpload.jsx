@@ -8,8 +8,12 @@ import Logo from "../components/Logo.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 
 import { uploadPrescription, reviewPrescription } from "../api/prescription.js";
+import { parsePrescription } from "../api/llm.js";
+import { addMultipleMedicines } from "../api/medicine.js";
+import { useNavigate } from "react-router-dom";
 
-import { Camera, HousePlus } from "lucide-react";
+import { Camera, HousePlus, Sparkle } from "lucide-react";
+
 
 export default function PrescriptionUpload() {
   const { user } = useAuth();
@@ -26,6 +30,14 @@ export default function PrescriptionUpload() {
  
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
+
+  const [parsing, setParsing] = useState(false);
+
+  const [parsedMedicines, setParsedMedicines] = useState(null);
+
+  const [creating, setCreating] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -67,6 +79,46 @@ export default function PrescriptionUpload() {
       setSaving(false);
     }
   };
+
+
+  const handleAutoFill = async () => {
+  setParsing(true);
+  setError("");
+  try {
+    const { medicines } = await parsePrescription(editedText);
+    if (!medicines || medicines.length === 0) {
+      setError("Couldn't identify any medicines in this text. Try adding them manually.");
+    } else {
+      setParsedMedicines(medicines);
+    }
+  } catch (err) {
+    setError("Auto-fill failed. Try again or add medicines manually.");
+  } finally {
+    setParsing(false);
+  }
+};
+
+const handleCreateMedicines = async () => {
+  setCreating(true);
+  setError("");
+  try {
+    const payload = parsedMedicines.map((med) => ({
+      name: med.name,
+      dosage: med.dosage,
+      frequency: med.frequency,
+      timings: med.timings || [],
+      durationDays: med.durationDays || 7,
+      stockCount: (med.durationDays || 7) * (med.timings?.length || 1),
+      refillThreshold: 3,
+    }));
+    await addMultipleMedicines(payload);
+    navigate("/medicines");
+  } catch (err) {
+    setError("Could not create medicines. Check the fields and try again.");
+  } finally {
+    setCreating(false);
+  }
+};
 
   const reset = () => {
     
@@ -214,23 +266,53 @@ export default function PrescriptionUpload() {
                   rows={9}
                   className="mt-3 w-full rounded-xl border border-white/10 bg-ink/60 px-4 py-3 text-sm text-lavender outline-none focus:border-mint/50"
                 />
-                <button
+                
+                  <button
                   onClick={handleSaveReview}
                   disabled={saving}
                   className="mt-4 w-full rounded-full bg-mint py-3 text-sm font-semibold text-ink disabled:opacity-50"
-                >
+                  >
                   {saving ? "Saving…" : saved ? "Saved ✓" : "Save reviewed text"}
-                </button>
+                  </button>
 
-                {saved && (
-                  <p className="mt-4 text-center text-xs text-muted">
-                    Now add the medicines you see here on the{" "}
-                    <Link to="/medicines" className="font-semibold text-mint hover:underline">
-                      medicines page
-                    </Link>
-                    .
-                  </p>
-                )}
+                  {saved && !parsedMedicines && (
+                  <button
+                  onClick={handleAutoFill}
+                  disabled={parsing}
+                  className="mt-3 w-full rounded-full border border-coral/40 py-3 text-sm font-semibold text-coral hover:bg-coral/10 disabled:opacity-50"
+                  >
+                 {parsing ? "Reading medicines…" : 
+                 <div className="flex items-center justify-center gap-2">
+                 <Sparkle className="h-4 w-4 text-coral" />
+                 <span>Auto-fill medicine schedule</span>
+                 </div>
+                 }
+               </button>
+)}
+
+{parsedMedicines && (
+  <div className="mt-5 space-y-3">
+    <p className="text-xs font-mono uppercase tracking-widest text-muted">
+      Found {parsedMedicines.length} medicine{parsedMedicines.length > 1 ? "s" : ""}
+    </p>
+    {parsedMedicines.map((med, i) => (
+      <div key={i} className="rounded-xl border border-mint/20 bg-mint/5 px-4 py-3">
+        <p className="text-sm font-medium">{med.name}</p>
+        <p className="text-xs text-muted">
+          {med.dosage} · {med.frequency} · {med.timings?.join(", ")}
+        </p>
+      </div>
+    ))}
+    <button
+      onClick={handleCreateMedicines}
+      disabled={creating}
+      className="w-full rounded-full bg-coral py-3 text-sm font-semibold text-ink disabled:opacity-50"
+    >
+      {creating ? "Adding…" : `Add all ${parsedMedicines.length} to my medicines`}
+    </button>
+  </div>
+)}
+
               </>
             )}
           </div>

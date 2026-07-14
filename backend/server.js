@@ -22,6 +22,8 @@ import prescriptionRoutes from "./routes/prescriptionRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import llmRoutes from "./routes/llmRoutes.js";
 
+import caregiverRoutes from "./routes/caregiverRoutes.js";
+
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 connectDB();
@@ -45,6 +47,8 @@ app.use("/api/prescriptions", prescriptionRoutes);
 
 app.use("/api/orders", orderRoutes);
 app.use("/api/llm", llmRoutes);
+
+app.use("/api/caregivers", caregiverRoutes);
 
 app.get("/", (req, res) => {
   res.send("MediTrack API is running...");
