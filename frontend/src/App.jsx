@@ -20,6 +20,14 @@ import Medicines from "./pages/Medicines.jsx";
 
 import PrescriptionUpload from "./pages/PrescriptionUpload.jsx";
 
+import Orders from "./pages/Orders.jsx";
+
+import Analytics from "./pages/Analytics.jsx";
+
+import Caregivers from "./pages/Caregivers.jsx";
+
+import PatientOverview from "./pages/PatientOverview.jsx";
+
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) return null;
@@ -58,9 +66,44 @@ function App() {
           }
           />
 
+         <Route
+         path="/orders"
+         element={
+         <ProtectedRoute>
+         <Orders />
+         </ProtectedRoute>
+         }
+         />
+
+         <Route
+         path="/analytics"
+         element={
+         <ProtectedRoute>
+         <Analytics />
+         </ProtectedRoute>
+         }
+         />
+        
+        <Route
+        path="/caregivers"
+        element={
+        <ProtectedRoute>
+        <Caregivers />
+        </ProtectedRoute>
+        }
+       />
 
 
-          <Route path="*" element={<NotFound />} />
+       <Route
+       path="/caregivers/patient/:patientId"
+       element={
+      <ProtectedRoute>
+      <PatientOverview />
+      </ProtectedRoute>
+      }
+      />
+
+        <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

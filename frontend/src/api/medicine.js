@@ -21,3 +21,9 @@ export const deleteMedicine = async (id) => {
   const { data } = await api.delete(`/medicines/${id}`);
   return data;
 };
+
+
+export const addMultipleMedicines = async (medicinesArray) => {
+  const results = await Promise.all(medicinesArray.map((med) => addMedicine(med)));
+  return results;
+};

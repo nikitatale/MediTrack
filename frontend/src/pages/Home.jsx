@@ -77,7 +77,9 @@ export default function Home() {
         
             <NavLink href="#how-it-works">How it works</NavLink>
         
-            <NavLink href="/auth">Get started</NavLink>
+            <NavLink href={`${user ? "#cta" : "/auth"}`}>
+            {user ? "Explore" : "Get started"}
+            </NavLink>
           </div>
  
           <Link

@@ -130,7 +130,21 @@ const loadData = async () => {
             <Link to="/scan" className="text-sm text-muted hover:text-lavender transition-colors">
              Scan prescription
            </Link>
+           <Link to="/orders" className="text-sm text-muted hover:text-lavender transition-colors">
+           Orders
+           </Link>
+
+           <Link to="/analytics" className="text-sm text-muted hover:text-lavender transition-colors">
+           Analytics
+           </Link>
+
+           <Link to="/caregivers" className="text-sm text-muted hover:text-lavender transition-colors">
+           Caregivers
+          </Link>
+
             <span className="hidden text-sm text-muted sm:inline">{user?.name}</span>
+
+
             <button
               onClick={handleLogout}
               className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-muted hover:text-coral hover:border-coral/40 transition-colors"
