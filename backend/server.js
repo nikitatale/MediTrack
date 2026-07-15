@@ -54,7 +54,6 @@ app.get("/", (req, res) => {
   res.send("MediTrack API is running...");
 });
 
-// Start cron jobs
 startReminderCron();
 
 const PORT = process.env.PORT || 5000;

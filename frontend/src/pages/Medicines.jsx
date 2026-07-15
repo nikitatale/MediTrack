@@ -16,6 +16,7 @@ import {
   deleteMedicine,
 } from "../api/medicine.js";
 import { HousePlus, PlusCircle } from "lucide-react";
+import MobileNav from "../components/MobileNav.jsx";
 
 const emptyForm = {
   name: "",
@@ -125,9 +126,9 @@ export default function Medicines() {
   return (
     <div className="min-h-screen w-full bg-ink text-lavender font-body">
  
-      <header className="border-b border-white/10">
+      <header className="relative z-30 border-b border-white/10">
       
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
+        <nav className="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
       
           <Link to="/dashboard" className="flex items-center gap-2.5">
             <Logo className="h-8 w-8" />
@@ -136,7 +137,7 @@ export default function Medicines() {
             </span>
           </Link>
       
-          <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-4 md:flex">
             <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
             <HousePlus className="h-4 w-4"/>
             </Link>
@@ -152,7 +153,7 @@ export default function Medicines() {
                     Orders
                   </Link>
 
-            <span className="hidden text-sm text-muted sm:inline">
+            <span className="text-sm text-muted">
               {user?.name}
             </span>
     
@@ -163,6 +164,25 @@ export default function Medicines() {
               Log out
             </button>
           </div>
+
+          <MobileNav>
+            <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
+              Home
+            </Link>
+            <Link to="/dashboard" className="text-sm text-muted hover:text-lavender transition-colors">
+              Dashboard
+            </Link>
+            <Link to="/orders" className="text-sm text-muted hover:text-lavender transition-colors">
+              Orders
+            </Link>
+            <span className="text-sm text-muted">{user?.name}</span>
+            <button
+              onClick={logout}
+              className="w-fit rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-muted hover:text-coral hover:border-coral/40 transition-colors"
+            >
+              Log out
+            </button>
+          </MobileNav>
         </nav>
       </header>
 
@@ -260,10 +280,10 @@ export default function Medicines() {
       </main>
 
      
-      {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6 backdrop-blur-sm">
-        
-          <div className="w-full max-w-md rounded-3xl border border-white/10 bg-plum2 p-7">
+    {showForm && (
+  <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 px-6 py-8 backdrop-blur-sm sm:items-center">
+  
+    <div className="my-auto max-h-[85vh] w-full max-w-md overflow-y-auto rounded-3xl border border-white/10 bg-plum2 p-7">
         
             <h2 className="font-display text-lg font-semibold">
               {editingId ? "Edit medicine" : "Add medicine"}
@@ -279,7 +299,7 @@ export default function Medicines() {
               
               <Field label="Timings (comma separated, e.g. 09:00, 21:00)" name="timings" value={form.timings} onChange={handleChange} />
               
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               
                 <Field label="Duration (days)" name="durationDays" type="number" value={form.durationDays} onChange={handleChange} />
               

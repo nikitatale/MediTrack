@@ -12,6 +12,7 @@ import { getMedicines } from "../api/medicine.js";
 
 import { placeOrder, getMyOrders } from "../api/order.js";
 import { HousePlus } from "lucide-react";
+import MobileNav from "../components/MobileNav.jsx";
 
 const statusMeta = {
   placed: { label: "Placed", tone: "text-muted" },
@@ -124,10 +125,9 @@ export default function Orders() {
      
       </div>
 
-      <header className="relative z-10 border-b border-white/10">
+      <header className="relative z-30 border-b border-white/10">
      
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-     
+        <nav className="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
           <Link to="/dashboard" className="flex items-center gap-2.5">
      
             <Logo className="h-8 w-8" />
@@ -139,7 +139,7 @@ export default function Orders() {
             </span>
           </Link>
      
-          <div className="flex items-center gap-5">
+          <div className="hidden items-center gap-5 md:flex">
 
             <Link
         to="/"
@@ -160,11 +160,19 @@ export default function Orders() {
               My medicines
      
             </Link>
+          </div>
+
+          <MobileNav>
+            <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
+              Home
+            </Link>
             <Link to="/dashboard" className="text-sm text-muted hover:text-lavender transition-colors">
-     
               Dashboard
             </Link>
-          </div>
+            <Link to="/medicines" className="text-sm text-muted hover:text-lavender transition-colors">
+              My medicines
+            </Link>
+          </MobileNav>
         </nav>
       </header>
 

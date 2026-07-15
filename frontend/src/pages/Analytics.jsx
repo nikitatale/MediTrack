@@ -36,7 +36,6 @@ export default function Analytics() {
     }
   };
 
-  // group last-30-days logs by date -> { date, taken, missed }
   const dailyData = React.useMemo(() => {
     if (!stats?.logs) return [];
     const grouped = {};

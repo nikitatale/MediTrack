@@ -32,9 +32,9 @@ export default function NotFound() {
 </div>
 
       <div className="relative z-10">
-        <p className="flex items-center justify-center gap-3 font-display text-6xl font-semibold bg-gradient-to-r from-coral to-mint bg-clip-text text-transparent">
+        <p className="flex items-center justify-center gap-3 font-display text-5xl font-semibold bg-gradient-to-r from-coral to-mint bg-clip-text text-transparent sm:text-6xl">
   <span>404</span>
-  <Ghost className="h-16 w-16 text-[#6EE7B7]" />
+  <Ghost className="h-12 w-12 text-[#6EE7B7] sm:h-16 sm:w-16" />
 </p>
         <h1 className="mt-3 font-display text-xl font-semibold">
           This page missed its dose.

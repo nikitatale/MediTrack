@@ -13,6 +13,7 @@ import { addMultipleMedicines } from "../api/medicine.js";
 import { useNavigate } from "react-router-dom";
 
 import { Camera, HousePlus, Sparkle } from "lucide-react";
+import MobileNav from "../components/MobileNav.jsx";
 
 
 export default function PrescriptionUpload() {
@@ -146,8 +147,8 @@ const handleCreateMedicines = async () => {
      
       </div>
 
-      <header className="relative z-10 border-b border-white/10">
-  <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
+      <header className="relative z-30 border-b border-white/10">
+  <nav className="relative mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
 
     <Link to="/dashboard" className="flex items-center gap-2.5">
       <Logo className="h-8 w-8" />
@@ -157,7 +158,7 @@ const handleCreateMedicines = async () => {
     </Link>
 
     
-    <div className="flex items-center gap-6">
+    <div className="hidden items-center gap-6 md:flex">
       <Link
         to="/"
         className="text-sm text-muted hover:text-lavender transition-colors"
@@ -174,6 +175,16 @@ const handleCreateMedicines = async () => {
 
       <span className="text-sm text-muted">{user?.name}</span>
     </div>
+
+    <MobileNav>
+      <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
+        Home
+      </Link>
+      <Link to="/dashboard" className="text-sm text-muted hover:text-lavender transition-colors">
+        Dashboard
+      </Link>
+      <span className="text-sm text-muted">{user?.name}</span>
+    </MobileNav>
   </nav>
 </header>
 

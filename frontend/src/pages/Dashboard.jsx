@@ -12,6 +12,7 @@ import { getMedicines } from "../api/medicine.js";
 import { markDose, getAdherenceStats } from "../api/adherence.js";
 
 import { HeartPlus, HousePlus, MoveRight, Sparkle } from "lucide-react";
+import MobileNav from "../components/MobileNav.jsx";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -103,21 +104,17 @@ const loadData = async () => {
       </div>
 
  
-      <header className="relative z-10 border-b border-white/10">
+      <header className="relative z-30 border-b border-white/10">
         
-        <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-        
+        <nav className="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
           <Link to="/dashboard" className="flex items-center gap-2.5">
-        
             <Logo className="h-8 w-8" />
-        
             <span className="font-display text-base font-semibold">
-        
               Medi<span className="text-coral">Track</span>
             </span>
           </Link>
-         
-          <div className="flex items-center gap-5">
+
+          <div className="hidden items-center gap-5 md:flex">
 
              <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
             <HousePlus className="h-4 w-4"/>
@@ -142,8 +139,7 @@ const loadData = async () => {
            Caregivers
           </Link>
 
-            <span className="hidden text-sm text-muted sm:inline">{user?.name}</span>
-
+            <span className="text-sm text-muted">{user?.name}</span>
 
             <button
               onClick={handleLogout}
@@ -152,6 +148,34 @@ const loadData = async () => {
               Log out
             </button>
           </div>
+
+          <MobileNav>
+            <Link to="/" className="text-sm text-muted hover:text-lavender transition-colors">
+              Home
+            </Link>
+            <Link to="/medicines" className="text-sm text-muted hover:text-lavender transition-colors">
+              My medicines
+            </Link>
+            <Link to="/scan" className="text-sm text-muted hover:text-lavender transition-colors">
+              Scan prescription
+            </Link>
+            <Link to="/orders" className="text-sm text-muted hover:text-lavender transition-colors">
+              Orders
+            </Link>
+            <Link to="/analytics" className="text-sm text-muted hover:text-lavender transition-colors">
+              Analytics
+            </Link>
+            <Link to="/caregivers" className="text-sm text-muted hover:text-lavender transition-colors">
+              Caregivers
+            </Link>
+            <span className="text-sm text-muted">{user?.name}</span>
+            <button
+              onClick={handleLogout}
+              className="w-fit rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-muted hover:text-coral hover:border-coral/40 transition-colors"
+            >
+              Log out
+            </button>
+          </MobileNav>
         </nav>
       </header>
 

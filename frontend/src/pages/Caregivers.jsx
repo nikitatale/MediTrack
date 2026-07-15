@@ -111,11 +111,10 @@ export default function Caregivers() {
           <p className="mt-10 text-sm text-muted">Loading…</p>
         ) : (
           <div className="mt-8 grid gap-8 lg:grid-cols-2">
-            {/* people who can see MY data */}
-            <div className="rounded-2xl border border-white/10 bg-plum/40 p-6">
+            <div className="rounded-2xl border border-white/10 bg-plum/40 p-4 sm:p-6">
               <h2 className="font-display text-lg font-semibold">People watching my schedule</h2>
 
-              <form onSubmit={handleInvite} className="mt-4 flex gap-2">
+              <form onSubmit={handleInvite} className="mt-4 flex flex-col gap-2 sm:flex-row">
                 <input
                   type="email"
                   value={email}
@@ -167,8 +166,7 @@ export default function Caregivers() {
               </div>
             </div>
 
-            {/* patients I'm caring for */}
-            <div className="rounded-2xl border border-white/10 bg-plum/40 p-6">
+            <div className="rounded-2xl border border-white/10 bg-plum/40 p-4 sm:p-6">
               <h2 className="font-display text-lg font-semibold">People I'm watching over</h2>
 
               <div className="mt-4 space-y-3">

@@ -77,7 +77,7 @@ export default function Auth() {
           </span>
         </Link>
 
-        <div className="rounded-3xl border border-white/10 bg-plum/60 p-8 backdrop-blur-sm shadow-2xl shadow-black/40 animate-fade-in-up">
+        <div className="rounded-3xl border border-white/10 bg-plum/60 p-6 backdrop-blur-sm shadow-2xl shadow-black/40 animate-fade-in-up sm:p-8">
       
           <div className="mb-7 flex rounded-full border border-white/10 bg-ink/50 p-1">
             {["login", "signup"].map((m) => (

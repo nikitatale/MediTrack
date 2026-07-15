@@ -13,6 +13,7 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 import HowItWorks from "../components/HowItWorks.jsx";
 import { Link } from "react-router-dom";
+import MobileNav from "../components/MobileNav.jsx";
 
 const Pill = ({ tone = "coral", className = "" }) => {
   const tones = {
@@ -62,7 +63,7 @@ export default function Home() {
 
     
       <header className="relative z-20">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
+        <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         
           <Link to="/" className="flex items-center gap-2.5">
             <Logo className="h-9 w-9 shrink-0" />
@@ -81,19 +82,30 @@ export default function Home() {
             {user ? "Explore" : "Get started"}
             </NavLink>
           </div>
- 
-          <Link
-  to={user ? "/dashboard" : "/auth"}
-  className="rounded-full bg-lavender px-5 py-2.5 text-sm font-semibold text-ink transition-transform duration-200 hover:scale-105 hover:bg-white"
->
-  {user ? "Go to dashboard" : "Sign up free"}
-</Link>
+
+          <div className="flex items-center gap-3">
+            <Link
+              to={user ? "/dashboard" : "/auth"}
+              className="rounded-full bg-lavender px-4 py-2 text-sm font-semibold text-ink transition-transform duration-200 hover:scale-105 hover:bg-white sm:px-5 sm:py-2.5"
+            >
+              <span className="sm:hidden">{user ? "Dashboard" : "Sign up"}</span>
+              <span className="hidden sm:inline">{user ? "Go to dashboard" : "Sign up free"}</span>
+            </Link>
+
+            <MobileNav>
+              <NavLink href="#features">Features</NavLink>
+              <NavLink href="#how-it-works">How it works</NavLink>
+              <NavLink href={`${user ? "#cta" : "/auth"}`}>
+                {user ? "Explore" : "Get started"}
+              </NavLink>
+            </MobileNav>
+          </div>
         </nav>
       </header>
 
    
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-10 sm:px-10 sm:pt-16 lg:pb-32">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
          
           <div className="animate-fade-in-up">
           
@@ -103,7 +115,7 @@ export default function Home() {
               Adherence, on autopilot
             </div>
 
-            <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.4rem] xl:text-6xl">
+            <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.4rem] xl:text-6xl">
               Never miss a{" "}
           
               <span className="bg-gradient-to-r from-coral to-coral2 bg-clip-text text-transparent">
@@ -152,13 +164,13 @@ export default function Home() {
           </div>
 
           
-          <div className="relative flex h-[420px] items-center justify-center lg:h-[480px]">
-            <Pill tone="coral" className="absolute left-2 top-6 rotate-[20deg] animate-float" />
-            <Pill tone="mint" className="absolute right-4 top-16 -rotate-[15deg] animate-float-slow" />
-            <Pill tone="mint" className="absolute bottom-10 left-8 rotate-[8deg] animate-float-slower" />
-            <Pill tone="coral" className="absolute bottom-24 right-2 -rotate-[10deg] animate-float" />
+          <div className="relative mx-auto flex h-[280px] w-full max-w-md items-center justify-center overflow-hidden sm:h-[420px] sm:max-w-none sm:overflow-visible lg:h-[480px]">
+  <Pill tone="coral" className="absolute left-1 top-4 rotate-[20deg] animate-float sm:left-2 sm:top-6" />
+  <Pill tone="mint" className="absolute right-1 top-14 -rotate-[15deg] animate-float-slow sm:right-4 sm:top-16" />
+  <Pill tone="mint" className="absolute bottom-8 left-2 rotate-[8deg] animate-float-slower sm:bottom-10 sm:left-8" />
+  <Pill tone="coral" className="absolute bottom-20 right-1 -rotate-[10deg] animate-float sm:bottom-24 sm:right-2" />
 
-            <div className="relative w-full max-w-md rounded-3xl border border-white/10 bg-plum/60 p-8 backdrop-blur-sm shadow-2xl shadow-black/40">
+  <div className="relative w-full max-w-xs rounded-3xl border border-white/10 bg-plum/60 p-5 backdrop-blur-sm shadow-2xl shadow-black/40 sm:max-w-md sm:p-8">
               <p className="font-mono text-xs uppercase tracking-widest text-muted">
                 Today's rhythm
               </p>
