@@ -20,11 +20,11 @@ const CallToAction = () => {
 
           <h2 className="relative font-display text-3xl font-semibold tracking-tight sm:text-4xl">
         
-            Your next dose is already
+            Your next dose is already &nbsp;
         
-            <span className="bg-gradient-to-r from-coral to-mint bg-clip-text text-transparent">
+             <span className="bg-gradient-to-r from-coral to-mint bg-clip-text text-transparent">
           
-              taken care of.
+             taken care of.
             </span>
           </h2>
 
